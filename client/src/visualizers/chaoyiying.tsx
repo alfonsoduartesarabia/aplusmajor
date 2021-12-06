@@ -5,7 +5,7 @@ import {Visualizer} from '../Visualizers';
 const particles: Particles[] = [];
 
 export const MultiShapeVisualizer = new Visualizer(
-    'Circle',
+    'MultiShape',
     (p5: P5, analyzer: Tone.Analyser) => {
         const width = window.innerWidth;
         const height = window.innerHeight / 2;
