@@ -1,3 +1,12 @@
+/** 
+ * - Citation for Grid.tsx
+  - Ruben Leija / Linguincode.com
+  - November 23, 2021
+  - Grid.tsx
+  - v1.0
+  - source code
+  - https://linguinecode.com/post/responsive-grid-layout-react-component#source-code
+ */
 import * as React from "react";
 
 import styles from "./Grid.module.css";
