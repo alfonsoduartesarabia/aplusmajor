@@ -21,7 +21,7 @@ export const Circle = new Visualizer(
 
     const values = analyzer.getValue();
     p5.beginShape();
-    
+    // Change Colors based on amplitude
     for (let i = 0; i < values.length; i++) {
       const angle = i * 360 / values.length
       const radius = 200
@@ -29,7 +29,6 @@ export const Circle = new Visualizer(
       const centerX = width / 2 - radius / 2
       const len = 100 * (values[i] as number)
 
-      
       const x1 = Math.cos(angle) * (radius - len/2) + centerX
       const x2 = Math.cos(angle) * (radius + len/2) + centerX
       const y1 = Math.sin(angle) * (radius - len/2) + centerY

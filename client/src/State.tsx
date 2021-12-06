@@ -3,8 +3,12 @@ import { List, Map } from 'immutable';
 
 // project dependencies
 import { PianoInstrument } from './instruments/Piano';
+<<<<<<< Updated upstream
 import { GuitarInstrument } from './instruments/Guitar';
 import { FluteInstrument } from './instruments/Flute';
+=======
+import { GuitarInstrument } from './instruments/Launchpad';
+>>>>>>> Stashed changes
 import { WaveformVisualizer } from './visualizers/Waveform';
 import { StarVisualizer } from './visualizers/alfonsoduartesarabia';
 <<<<<<< Updated upstream
