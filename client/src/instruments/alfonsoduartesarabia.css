@@ -1,0 +1,97 @@
+.button-wrap{
+    display: flex;
+    border: 2px solid palevioletred;
+    color: palevioletred;
+    /* margin: 0 0.5em;
+    padding: 0.25em 1em;
+    min-width: 100px; */
+    width:100px;
+    height: 70px;
+    text-align:center;
+    line-height:1.1em;
+    font-size:1.1em;
+    padding: 0.25em 0.7em;
+    align-items: center;
+
+    /* padding: 15px 25px; */
+    font-size: 15px;
+    cursor: pointer;
+    outline: none;
+    /* border: none; */
+    border-radius: 20px;
+    box-shadow: 0 9px #999;
+}
+.button-wrap:active {
+    /* background-color: palevioletred; */
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+.volume-bar{
+    position: fixed;
+    left: 700px;
+    top: 100px;
+}
+.record-btn{
+    display: flex;
+    border: 2px solid palevioletred;
+    color: palevioletred;
+    width: 50px;
+    height: 50px;
+    line-height:1.1em;
+    /* font-size:1.1em; */
+    /* padding: 15px 25px; */
+    font-size: 12px;
+    cursor: pointer;
+    outline: none;
+    border-radius: 20px;
+    box-shadow: 0 9px #999;
+    position: fixed;
+    left: 700px;
+    top: 150px;
+    padding:0.5em;
+    align-items: center;
+}
+.add-btn{
+    display: flex;
+    border: 2px solid palevioletred;
+    color: palevioletred;
+    width: 50px;
+    height: 50px;
+    text-align:center;
+    line-height:1.1em;
+    font-size: 1.1em;
+    padding: 0.5em;
+    font-size: 15px;
+    cursor: pointer;
+    outline: none;
+    border-radius: 20px;
+    box-shadow: 0 9px #999;
+    position: fixed;
+    left: 770px;
+    top: 150px;
+    align-items: center;
+}
+.stop-btn{
+    display: flex;
+    border: 2px solid palevioletred;
+    color: palevioletred;
+    width: 50px;
+    height: 50px;
+    text-align:center;
+    line-height:1.1em;
+    font-size:1.1em;
+    padding: 0.5em;
+    font-size: 15px;
+    cursor: pointer;
+    outline: none;
+    border-radius: 20px;
+    box-shadow: 0 9px #999;
+    position: fixed;
+    left: 840px;
+    top: 150px;
+    align-items: center;
+}
+.record-btn:active, .add-btn:active, .stop-btn:active{
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
