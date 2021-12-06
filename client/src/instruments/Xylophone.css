@@ -3,9 +3,33 @@
     height: 100px;
 }
 
+.C0:hover{
+    transform: translate(-6px,-6px);
+}
+
+.C0:hover::after{
+    transform: translate(3px,3px);
+}
+
+.C0:hover::before{
+    transform: translate(6px,6px);
+}
+
 .D1{
     background-color: orange;
     height: 90px;
+}
+
+.D1:hover{
+    transform: translate(-6px,-6px);
+}
+
+.D1:hover::after{
+    transform: translate(3px,3px);
+}
+
+.D1:hover::before{
+    transform: translate(6px,6px);
 }
 
 .E1{
@@ -13,9 +37,33 @@
     height: 80px;
 }
 
+.E1:hover{
+    transform: translate(-6px,-6px);
+}
+
+.E1:hover::after{
+    transform: translate(3px,3px);
+}
+
+.E1:hover::before{
+    transform: translate(6px,6px);
+}
+
 .F1{
     background-color: green;
     height: 70px;
+}
+
+.F1:hover{
+    transform: translate(-6px,-6px);
+}
+
+.F1:hover::after{
+    transform: translate(3px,3px);
+}
+
+.F1:hover::before{
+    transform: translate(6px,6px);
 }
 
 .G1{
@@ -23,9 +71,33 @@
     height: 60px;
 }
 
+.G1:hover{
+    transform: translate(-6px,-6px);
+}
+
+.G1:hover::after{
+    transform: translate(3px,3px);
+}
+
+.G1:hover::before{
+    transform: translate(6px,6px);
+}
+
 .A1{
     background-color: lightblue;
     height: 50px;
+}
+
+.A1:hover{
+    transform: translate(-6px,-6px);
+}
+
+.A1:hover::after{
+    transform: translate(3px,3px);
+}
+
+.A1:hover::before{
+    transform: translate(6px,6px);
 }
 
 .B1{
@@ -33,14 +105,50 @@
     height: 40px;
 }
 
+.B1:hover{
+    transform: translate(-6px,-6px);
+}
+
+.B1:hover::after{
+    transform: translate(3px,3px);
+}
+
+.B1:hover::before{
+    transform: translate(6px,6px);
+}
+
 .C1{
     background-color: red;
     height: 30px;
 }
 
+.C1:hover{
+    transform: translate(-6px,-6px);
+}
+
+.C1:hover::after{
+    transform: translate(3px,3px);
+}
+
+.C1:hover::before{
+    transform: translate(6px,6px);
+}
+
 .D0{
     background-color: orange;
     height: 20px;
+}
+
+.D0:hover{
+    transform: translate(-6px,-6px);
+}
+
+.D0:hover::after{
+    transform: translate(3px,3px);
+}
+
+.D0:hover::before{
+    transform: translate(6px,6px);
 }
 
 .volume{
