@@ -1,0 +1,49 @@
+.C0{
+    background-color: red;
+    height: 100px;
+}
+
+.D1{
+    background-color: orange;
+    height: 90px;
+}
+
+.E1{
+    background-color: yellow;
+    height: 80px;
+}
+
+.F1{
+    background-color: green;
+    height: 70px;
+}
+
+.G1{
+    background-color: darkgreen;
+    height: 60px;
+}
+
+.A1{
+    background-color: lightblue;
+    height: 50px;
+}
+
+.B1{
+    background-color: purple;
+    height: 40px;
+}
+
+.C1{
+    background-color: red;
+    height: 30px;
+}
+
+.D0{
+    background-color: orange;
+    height: 20px;
+}
+
+.volume{
+    display: flex;
+    margin-left: 30px;
+}
