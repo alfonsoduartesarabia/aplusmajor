@@ -97,7 +97,7 @@ export const MultiShapeVisualizer = new Visualizer(
             particles[i].update();
             particles[i].show();
             //delete unseen particles
-            if(particles[i].toDeleted()){
+            while(particles[i].toDeleted()){
                 particles.splice(i,1);
             }
         }
