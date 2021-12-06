@@ -2,7 +2,7 @@ import P5 from 'p5';
 import * as Tone from 'tone';
 import {Visualizer} from '../Visualizers';
 
-const particles: Particle[] = [];
+const particles: Particles[] = [];
 
 export const MultiShapeVisualizer = new Visualizer(
     'Circle',
@@ -91,6 +91,16 @@ export const MultiShapeVisualizer = new Visualizer(
             }
         }
         */
+        let p =new Particles(p5);
+        particles.push(p);
+        for(let i = particles.length - 1; i>=0; i--){
+            particles[i].update();
+            particles[i].show();
+            //delete unseen particles
+            if(particles[i].toDeleted()){
+                particles.splice(i,1);
+            }
+        }
     },
 );
 
@@ -111,6 +121,8 @@ export class Particle {
         this.w = this.p5.random(3, 5);
         this.width = window.innerHeight;
         this.height = window.innerHeight / 2;
+        this.pos.x = 2 * Math.floor(this.p5.random() * this.width);
+        this.pos.y = Math.floor(this.p5.random() * this.height)/2;
     }
 
     //update particle
@@ -136,4 +148,46 @@ export class Particle {
         this.p5.ellipse(this.pos.x, this.pos.y, this.w);
     };
 
+}
+
+class Particles{
+    p5: P5;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    vx;
+    vy;
+    alpha;
+
+    constructor(p5: P5) {
+        this.p5 = p5;
+        //this.x = 300;
+        //this.y = 380;
+        this.width = window.innerHeight;
+        this.height = window.innerHeight/2;
+        this.x = Math.floor(this.p5.random() * this.width);
+        this.y = Math.floor(this.p5.random() * this.height);
+        this.vx = this.p5.random(-1,1);
+        this.vy = this.p5.random(-5,-1);
+        this.alpha = 255;
+    }
+
+    show(){
+        this.p5.noStroke();
+        //this.p5.stroke(255);
+        this.p5.fill(255,this.alpha);
+        this.p5.ellipse(this.x,this.y,16);
+        this.p5.ellipse(-this.x, this.y, 16);
+    }
+
+    update(){
+        this.x += this.vx;
+        this.y += this.vy;
+        this.alpha -= 5;
+    }
+
+    toDeleted(){
+        return this.alpha < 0;
+    }
 }
