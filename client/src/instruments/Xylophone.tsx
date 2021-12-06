@@ -179,4 +179,4 @@ export function Container({sampler, volume}: Xylophone): JSX.Element {
 }
 
 
-export const XylophoneInstrument = new Instrument('Xylophone Machine', XylophoneMachine);
+export const XylophoneInstrument = new Instrument('Xylophone', XylophoneMachine);
