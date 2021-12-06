@@ -9,7 +9,7 @@ export class MessageHandler {
   constructor(
     eventName: string,
     schema: Schema,
-    onMessage: (msg: any, socket: Socket) => Promise<Object | void>,
+    onMessage: (msg: any, socket: Socket) => any,
   ) {
     this.eventName = eventName;
     this.schema = schema;
@@ -31,6 +31,7 @@ export class MessageHandler {
 
       try {
         const success = await this.onMessage(obj, socket);
+        console.log("success", success)
         if (success) {
           const { _id } = obj;
           socket.emit(`${this.eventName}.${_id}`, success);
