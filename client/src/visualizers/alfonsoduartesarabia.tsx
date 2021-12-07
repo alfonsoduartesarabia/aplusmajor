@@ -97,8 +97,8 @@ export class Particle{
   // const vector = P5.Vector.random2D().mult(250);
   pos: P5.Vector;
   p5: P5;
-  vel; acc; w;
-  x; y; xSpeed; ySpeed; width: number; height: number;
+  vel: P5.Vector; acc: P5.Vector; w :number;
+  x: number; y: number; xSpeed: number; ySpeed: number; width: number; height: number;
   alpha: number;
   //constructor
   constructor(p5: P5){

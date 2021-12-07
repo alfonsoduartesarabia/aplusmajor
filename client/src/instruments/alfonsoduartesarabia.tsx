@@ -10,7 +10,6 @@ import Grid from './Grid';
 import './alfonsoduartesarabia.css';
 import { Socket } from 'socket.io-client';
 import { send } from '../Socket';
-import {SaveSongHandler} from '/Users/alfonsoduarte/Documents/CSC600/final-project-a-major/server/src/handlers/SaveSongHandler';
 import { DispatchAction } from '../Reducer';
 
 /** ------------------------------------------------------------------------ **
@@ -26,50 +25,9 @@ interface DrumPadProps{
   volume: number;
   recorder: Tone.Recorder;
   socket: Socket;
-  // isRec: boolean;
-  // notes: string[];
-}
+}  
 
-export function DrumMachineKey({
-  synth,
-  sampler
-}: DrumPadProps): JSX.Element {
-
-  sampler = new Tone.Sampler({
-    urls: {
-      BassDrum: 'Bass-Drum-1.wav',
-      BoomKick: 'Boom-Kick.wav',
-      ClosedHiHat: 'Closed-Hi-Hat-2.wav',
-      DryKick: 'Dry-Kick.wav',
-      ElectricGuitar: 'Electric-Guitar-C4.wav',
-      EnglishHorn: 'English-Horn-C5.wav',
-      HiBongo: 'Hi-Bongo.wav',
-      HiHat: 'Hi-Hat-Open-Hit-B1.mp3',
-      Snare: 'Hip-Hop-Snare.wav',
-    }, 
-    release: 10,
-    baseUrl: 'http://localhost:3000/'
-  }).toDestination();
-
-  return (
-    // Observations:
-    // 1. The JSX refers to the HTML-looking syntax within TypeScript.
-    // 2. The JSX will be **transpiled** into the corresponding `React.createElement` library call.
-    // 3. The curly braces `{` and `}` should remind you of string interpolation.
-    <div
-      onMouseDown={() => synth?.triggerAttack(``)} // Question: what is `onMouseDown`?
-      onMouseUp={() => synth?.triggerRelease('+0.25')} // Question: what is `onMouseUp`?
-      className={classNames('ba pointer absolute dim', {
-      })}
-      style={{
-        // CSS
-        
-      }}
-    ></div>
-  );
-}
-
-/** Drum Machine - keys: id and notes 
+/** Drum Machine 
 **/
 function DrumMachine({ state, synth, setSynth }: InstrumentProps ): JSX.Element {
   const [volume,setVolume] = useState<number>(5);
@@ -110,13 +68,10 @@ function DrumMachine({ state, synth, setSynth }: InstrumentProps ): JSX.Element 
 
 // Connect to database
 async function saveNotesToDB(notes: string[], socket: Socket){
-  /* 
-  1. pass socket 
-  2. import send func
-  */
-    const response = await send(socket, 'save_song', { notes });
-    //const songs = await send(socket,'get_songs',{})
-   // new DispatchAction('SET_SONGS',{songs: response});
+  const response = await send(socket, 'save_song', { notes });
+  //const songs = await send(socket,'get_songs',{})
+  // new DispatchAction('SET_SONGS',{songs: response});
+
   /* 
     Lets figure out what response will be after 
   */
@@ -142,14 +97,11 @@ export function CreateGrid({ sampler, volume, recorder, socket }: DrumPadProps):
   }).toDestination();
 
   const [isRec,setIsRec] = useState(false);
+  const [audioUrl,setAudioURL] = useState('');
   const notes: string[] = [];
-  // recorder = new Tone.Recorder();
   sampler.volume.value = volume;
   sampler?.connect(recorder);
-  // synth = new Tone.Synth().connect(recorder);
   let url: string = '';
-  // const videoRef = useRef();
-  // const previousUrl = useRef(url);
   
   function saveNotes(note: string){
     if(isRec){
@@ -163,17 +115,21 @@ export function CreateGrid({ sampler, volume, recorder, socket }: DrumPadProps):
   function stopRecording(){
     setIsRec(false);
     saveNotesToDB(notes,socket);
-    // Sampler Recorder - Generate 
-    //recorder.start();
     setTimeout(async () => {
       const recording = await recorder.stop();
       url = URL.createObjectURL(recording);
-      // const anchor = document.createElement("a");
-      // anchor.download = "recording.webm";
-      // anchor.href = url;
-      // anchor.click();
-    },2000);
+      setAudioURL(url);
+    },1000);
     notes.splice(0,notes.length);
+  }
+  function downloadRecording(){
+    if(audioUrl.length > 0){
+      const anchor = document.createElement("a");
+      anchor.download = "recording.webm";
+      anchor.href = audioUrl;
+      anchor.click();
+      setAudioURL('');
+    }
   }
 
   return (
@@ -246,23 +202,24 @@ export function CreateGrid({ sampler, volume, recorder, socket }: DrumPadProps):
           {/* <BsFillStopFill /> */}
           <div className='button-name'>record</div>
           </button>
-          <button className='add-btn'>
-          <div className=''>add</div>
-          </button>
           <button className={`stop-btn ${isRec ? '' : 'bg-dark-red white'}`} disabled={!isRec} onClick={stopRecording}>
           <div className='button-name'>stop</div>
           </button>
-
-          {/* <video controls >
-            <source src={url} type='video/webm'/>
-          </video> */}
+          <button className='add-btn'onClick={downloadRecording}>
+          <div className='button-name'>Download</div>
+          </button>
+          {isRec && <p style={{color:'red'}}>You are recording</p>}
+          <div className='audio'>
+            <audio controls src={audioUrl}>
+            </audio>
+          </div>
       </div>
 
     </div>
   );
 }
 
-// create drumpad buttons
+// create drumpad buttons - NOT USED
 export function DrumPadButton({id,note, sampler}: DrumPadProps): JSX.Element {
   sampler = new Tone.Sampler({
     urls: {
