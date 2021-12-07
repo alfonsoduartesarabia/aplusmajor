@@ -124,17 +124,31 @@ function Songs({ state, dispatch }: SideNavProps): JSX.Element {
       //console.log(songs.filter(song => song.get('song_title').includes(query)));
       }
       }/>}
-      {songs.filter(song => song.get('song_title').toLowerCase().includes(query.toLowerCase())).map(song => ( // Change this to arr.filter and filter based on query
+      {songs.filter(song => 
+        song
+          .get('song_title')
+          .toLowerCase()
+          .includes(query.toLowerCase()) ||  song
+          .get('artist')
+          .toLowerCase()
+          .includes(query.toLowerCase()))
+          .map(song => ( // Change this to arr.filter and filter based on query
         <div
           key={song.get('id')}
-          className="f6 pointer underline flex items-center no-underline i dim"
+          className="f6 pointer underline no-underline i dim flex flex-column bt"
           onClick={() =>{
               dispatch(new DispatchAction('PLAY_SONG', { id: song.get('id') }))
             }
           }
         >
-          <Music20 className="mr1" />
-          {song.get('song_title')}
+          
+          <div className="flex items-center"> 
+              <Music20 className="mr1" />
+              {"Song Title: " + song.get('song_title')}
+            </div>
+            <div>
+              {"Artist: " + song.get('artist')}
+            </div>
         </div>
       ))}
     </Playlist>
