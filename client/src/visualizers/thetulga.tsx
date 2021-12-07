@@ -18,7 +18,7 @@ export const Circle = new Visualizer(
     p5.strokeWeight(dim * 0.01);
     p5.stroke(255, 255, 255, 255);
     p5.noFill();
-
+    const colors :string[] = ["green", "red", "blue", "white", "gray"]
     const values = analyzer.getValue();
     p5.beginShape();
     // Change Colors based on amplitude
@@ -29,11 +29,12 @@ export const Circle = new Visualizer(
       const centerX = width / 2 - radius / 2
       const len = 100 * (values[i] as number)
 
-      const x1 = Math.cos(angle) * (radius - len/2) + centerX
-      const x2 = Math.cos(angle) * (radius + len/2) + centerX
-      const y1 = Math.sin(angle) * (radius - len/2) + centerY
-      const y2 = Math.sin(angle) * (radius + len/2) + centerY
-      p5.stroke(i, i, i, i);
+      const x1 = Math.cos(angle) * (radius - (len/2) * (i % 5 + 1)) + centerX
+      const x2 = Math.cos(angle) * (radius + (len/2) * (i % 5 + 1)) + centerX
+      const y1 = Math.sin(angle) * (radius - (len/2) * (i % 5 + 1)) + centerY
+      const y2 = Math.sin(angle) * (radius + (len/2) * (i % 5 + 1)) + centerY
+
+      p5.stroke(colors[i % 5]);
       p5.line(x1, y1, x2, y2)
       // p5.vertex(X, Y);
     }
