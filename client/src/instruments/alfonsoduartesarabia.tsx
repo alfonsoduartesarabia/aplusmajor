@@ -112,7 +112,7 @@ export function saveNotesToDB(notes: string[]){
   1. pass socket 
   2. import send func
   */
-  const response  = await send(socket, 'new_recording', { notes });
+  // const response  = await send(socket, 'new_recording', { notes });
   /* 
     Lets figure out what response will be after 
   */

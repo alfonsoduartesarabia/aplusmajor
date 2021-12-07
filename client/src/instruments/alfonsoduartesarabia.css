@@ -29,7 +29,7 @@
 .volume-bar{
     position: fixed;
     left: 700px;
-    top: 100px;
+    top: 250px;
 }
 .record-btn{
     display: flex;

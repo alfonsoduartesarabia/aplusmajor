@@ -104,9 +104,11 @@ function Visualizers({ state }: SideNavProps): JSX.Element {
 
 function Songs({ state, dispatch }: SideNavProps): JSX.Element {
   const songs: List<any> = state.get('songs', List());
+  // const [query, setQuery] = useState("")  
   return (
     <Section title="Playlist">
-      {songs.map(song => (
+      {/* <input onChange={ event => setQuery(event.target.value)}/> */}
+      {songs.map(song => ( // Change this to arr.filter and filter based on query
         <div
           key={song.get('id')}
           className="f6 pointer underline flex items-center no-underline i dim"
