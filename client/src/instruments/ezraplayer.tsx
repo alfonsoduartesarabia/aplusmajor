@@ -94,10 +94,10 @@ export function PianoKey({
         //synth?.triggerRelease('+0.25')
     } // Question: what is `onMouseUp`?
       className={classNames('ba pointer absolute dim', {
-        'bg-black black h4': minor, // minor keys are black
+        'bg-black black h3': minor, // minor keys are black
         'black bg-white h4': !minor, // major keys are white
       })}
-      style={{
+      style={{ 
         // CSS
         top: 20,
         left: `${index * 2}rem`,
@@ -251,7 +251,7 @@ function Flute({ synth, setSynth }: InstrumentProps): JSX.Element {
             <ChordType
               title={c[0]}
               onClick={() => setChord(c)}
-              active={chord[0] == c[0]}
+              active={chord[0] === c[0]}
             />
           ))}
         </div>
@@ -262,6 +262,7 @@ function Flute({ synth, setSynth }: InstrumentProps): JSX.Element {
           {seventhChords.map(c => (
             <ChordType
               title={c[0]}
+              active={chord[0] === c[0]}
               onClick={() => setChord(c)}
             />
           ))}

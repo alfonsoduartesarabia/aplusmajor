@@ -9,7 +9,7 @@ import { StarVisualizer } from './visualizers/alfonsoduartesarabia';
 import { Circle } from './visualizers/thetulga';
 import { Smiley } from './visualizers/ezra';
 import { DrumMachineInstrument } from './instruments/alfonsoduartesarabia';
-import { FluteInstrument } from './instruments/Flute';
+import { FluteInstrument } from './instruments/ezraplayer';
 import { MultiShapeVisualizer } from './visualizers/chaoyiying';
 import { XylophoneInstrument } from "./instruments/Xylophone";
 
