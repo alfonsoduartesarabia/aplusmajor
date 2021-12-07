@@ -31,7 +31,6 @@ export class MessageHandler {
 
       try {
         const success = await this.onMessage(obj, socket);
-        console.log("success", success)
         if (success) {
           const { _id } = obj;
           socket.emit(`${this.eventName}.${_id}`, success);
