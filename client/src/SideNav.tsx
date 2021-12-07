@@ -27,7 +27,7 @@ interface SideNavProps {
 
 const Section: React.FC<{ title: string }> = ({ title, children }) => {
   return (
-    <div className="flex flex-column h-25 bb b--light-gray pa3">
+    <div className="flex flex-column h-25 bb b--light-gray light-gray bg-blue pa3">
       <div className="fw7 mb2">{title} </div>
       <div className="flex-auto overflow-scroll">{children}</div>
     </div>
@@ -45,7 +45,7 @@ function RadioButton({ to, text, active, onClick }: RadioButtonProps): JSX.Eleme
   return (
     <Link to={to} className="no-underline">
       <div
-        className={classNames('f6 flex items-center black', { fw7: active })}
+        className={classNames('f6 flex items-center near-white', { fw7: active })}
         onClick={onClick}
       >
         {active ? (
@@ -124,9 +124,9 @@ function Songs({ state, dispatch }: SideNavProps): JSX.Element {
 
 export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
   return (
-    <div className="absolute top-0 left-0 bottom-0 w5 z-1 shadow-1 bg-white flex flex-column">
+    <div className="absolute top-0 left-0 bottom-0 w5 z-1 shadow-1 flex light-gray bg-blue flex-column">
       <div className="h3 fw7 f5 flex items-center pl3 bb b--light-gray">
-        Nameless App
+        A+ Major
       </div>
       <div className="flex-auto">
         <Instruments state={state} dispatch={dispatch} />

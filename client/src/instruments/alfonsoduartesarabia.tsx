@@ -2,7 +2,7 @@
 import * as Tone from 'tone';
 import classNames from 'classnames';
 import { List, Range } from 'immutable';
-import { ChangeEventHandler, useState } from 'react';
+import { ChangeEventHandler, createRef, useEffect, useRef, useState } from 'react';
 
 // project imports
 import { Instrument, InstrumentProps } from '../Instruments';
@@ -21,6 +21,9 @@ interface DrumPadProps{
   synth?: Tone.Synth;
   sampler?: Tone.Sampler;
   volume: number;
+  recorder: Tone.Recorder;
+  // isRec: boolean;
+  // notes: string[];
 }
 
 export function DrumMachineKey({
@@ -64,53 +67,21 @@ export function DrumMachineKey({
 
 /** Drum Machine - keys: id and notes 
 **/
-function DrumMachine({ synth, setSynth }: InstrumentProps, { sampler }: DrumPadProps): JSX.Element {
+function DrumMachine({ synth, setSynth }: InstrumentProps ): JSX.Element {
   const [volume,setVolume] = useState<number>(5);
-  const [recording,setRecording] = useState<boolean>(false);
-  const [stopRec,setStopRec] = useState<boolean>(false);
   const recorder = new Tone.Recorder();
-  sampler?.connect(recorder);
-  //const [muted,setMuted] = useState(false);
-  const keys = List([
-    {id: 'BassDrum', note: 'A0'},
-    {id: 'BoomKick', note: 'B0'},
-    {id: 'ClosedHH', note: 'C0'},
-    {id: 'DryKick', note: 'A4'},
-    {id: 'ElectricGuitar', note: 'B5'},
-    {id: 'EnglishHorn', note: 'C6'},
-    {id: 'HiBongo', note: 'D7'},
-    {id: 'OpenHH', note: 'E1'},
-    {id: 'HipHopSnare', note: 'F2'}
-  ]);
 
   function changeVolume(e: React.ChangeEvent<HTMLInputElement>) {
     setVolume(e.target.value as unknown as number);
-    sampler?.disconnect();
+    // sampler?.disconnect();
   }
-
-  function startRecording(e: React.MouseEvent<HTMLButtonElement>){
-    setRecording(true);
-    setStopRec(true);
-    // recorder.start();
-  }
-  function stopRecording(e: React.MouseEvent<HTMLButtonElement>){
-    setRecording(false);
-    setStopRec(false);
-    // setTimeout(async () => {
-    //   const recording = await recorder.stop();
-    //   const url = URL.createObjectURL(recording);
-    //   const anchor = document.createElement("a");
-    //   anchor.download = "recording.webm";
-    //   anchor.href = url;
-    //   anchor.click();
-    // },4000);
-
-  }
-
+  
   return (
     <div className="pv4">
-        <div className="relative h4 w-200 ml4">
-          <CreateGrid id={''} note={''} volume={volume}/>
+        <div className="relative h5 w-200 ml4">
+          <CreateGrid 
+          id={''} note={''} volume={volume} recorder={recorder} 
+          /> 
           {/* {keys.map(k => {
           return  <DrumPadButton id={k.id} note={k.note} synth={synth} />
           })} */}
@@ -128,24 +99,18 @@ function DrumMachine({ synth, setSynth }: InstrumentProps, { sampler }: DrumPadP
           Volume
           </label>
         </div>
-        <div className='recorder'>
-          <button className='record-btn' disabled={recording} onClick={startRecording}>
-          {/* <BsFillStopFill /> */}
-          <div className='button-name'>record</div>
-          </button>
-          <button className='add-btn'>
-          <div className='button-name'>add</div>
-          </button>
-          <button className='stop-btn' disabled={!stopRec} onClick={stopRecording}>
-          <div className='button-name'>stop</div>
-          </button>
-        </div>
     </div>
   );
 }
 
+// Connect to database
+export function saveNotesToDB(notes: string[]){
+  console.log(notes.length);
+}
+
 // Hard coding the grid with buttons
-export function CreateGrid({ sampler, volume }: DrumPadProps): JSX.Element{
+export function CreateGrid({ synth, sampler, volume, recorder}: DrumPadProps): JSX.Element{
+
   sampler = new Tone.Sampler({
     urls: {
       A0: 'sounds/Bass-Drum-1.wav',
@@ -162,26 +127,59 @@ export function CreateGrid({ sampler, volume }: DrumPadProps): JSX.Element{
     baseUrl: 'http://localhost:3000/'
   }).toDestination();
 
-  // console.log(value);
+  const [isRec,setIsRec] = useState(false);
+  const notes: string[] = [];
+  // recorder = new Tone.Recorder();
   sampler.volume.value = volume;
+  sampler?.connect(recorder);
+  // synth = new Tone.Synth().connect(recorder);
+  let url: string = '';
+  const videoRef = useRef();
+  const previousUrl = useRef(url);
+  
+  function saveNotes(note: string){
+    if(isRec){
+      notes.push(note);
+    }
+  }
+  function startRecording(){
+    setIsRec(true);
+    recorder.start();
+  }
+  function stopRecording(){
+    setIsRec(false);
+    saveNotesToDB(notes);
+    // Sampler Recorder - Generate 
+    //recorder.start();
+    setTimeout(async () => {
+      const recording = await recorder.stop();
+      url = URL.createObjectURL(recording);
+      const anchor = document.createElement("a");
+      anchor.download = "recording.webm";
+      anchor.href = url;
+      anchor.click();
+    },2000);
+    notes.splice(0,notes.length);
+  }
+
   return (
     <div>
     <Grid row={true} >
       <Grid column={true} sm={1} md={1}>
       <button id='button-wrap' className='button-wrap' 
-        onMouseDown={() => sampler?.triggerAttack(`A0`)}
+        onMouseDown={() => sampler?.triggerAttack(`A0`) && saveNotes('A0')}
         onMouseLeave={() => sampler?.triggerRelease('')}
       >Bass Drum</button>
       </Grid>
       <Grid column={true} sm={1} md={1}>
       <button id='button-wrap' className='button-wrap'
-      onMouseDown={() => sampler?.triggerAttack(`B0`)}
+      onMouseDown={() => sampler?.triggerAttack(`B0`) && saveNotes('B0')}
       onMouseLeave={() => sampler?.triggerRelease('')}
       >Boom Kick</button>
       </Grid>
       <Grid column={true} sm={1} md={1}>
       <button id='button-wrap' className='button-wrap'
-      onMouseDown={() => sampler?.triggerAttack(`C0`)}
+      onMouseDown={() => sampler?.triggerAttack(`C0`) && saveNotes('C0')}
       onMouseLeave={() => sampler?.triggerRelease('')}
       >Closed HH</button>
       </Grid>
@@ -190,19 +188,19 @@ export function CreateGrid({ sampler, volume }: DrumPadProps): JSX.Element{
     <Grid row={true}>
       <Grid column={true} sm={1} md={1}>
       <button id='button-wrap' className='button-wrap'
-      onMouseDown={() => sampler?.triggerAttack(`A4`)}
+      onMouseDown={() => sampler?.triggerAttack(`A4`) && saveNotes('A4')}
       onMouseLeave={() => sampler?.triggerRelease('')}
       >Dry Kicks</button>
       </Grid>
       <Grid column={true} sm={1} md={1}>
       <button id='button-wrap' className='button-wrap'
-      onMouseDown={() => sampler?.triggerAttack(`B5`)}
+      onMouseDown={() => sampler?.triggerAttack(`B5`) && saveNotes('B5')}
       onMouseLeave={() => sampler?.triggerRelease('')}
       >Electric Guitar</button>
       </Grid>
       <Grid column={true} sm={1} md={1}>
       <button id='button-wrap' className='button-wrap'
-      onMouseDown={() => sampler?.triggerAttack(`C6`)}
+      onMouseDown={() => sampler?.triggerAttack(`C6`) && saveNotes('C6')}
       onMouseLeave={() => sampler?.triggerRelease('')}
       >English Horn</button>
       </Grid>
@@ -211,23 +209,40 @@ export function CreateGrid({ sampler, volume }: DrumPadProps): JSX.Element{
     <Grid row={true}>
       <Grid column={true} sm={1} md={1}>
       <button id='button-wrap' className='button-wrap'
-      onMouseDown={() => sampler?.triggerAttack(`D7`)}
+      onMouseDown={() => sampler?.triggerAttack(`D7`) && saveNotes('D7')}
       onMouseLeave={() => sampler?.triggerRelease('')}
       >Hi Bongo</button>
       </Grid>
       <Grid column={true} sm={1} md={1}>
       <button id='button-wrap' className='button-wrap'
-      onMouseDown={() => sampler?.triggerAttack(`E1`)}
+      onMouseDown={() => sampler?.triggerAttack(`E1`) && saveNotes('E1')}
       onMouseLeave={() => sampler?.triggerRelease('')}
       >Open HH</button>
       </Grid>
       <Grid column={true} sm={1} md={1}>
       <button id='button-wrap' className='button-wrap'
-      onMouseDown={() => sampler?.triggerAttack(`F2`)}
+      onMouseDown={() => sampler?.triggerAttack(`F2`) && saveNotes('F2')}
       onMouseLeave={() => sampler?.triggerRelease('')}
       >Hip Hop Snare</button>
       </Grid>
     </Grid>
+
+      <div className='recorder'>
+          <button className={`record-btn ${isRec ? 'bg-dark-red white' : ''}`} disabled={isRec} onClick={startRecording}>
+          {/* <BsFillStopFill /> */}
+          <div className='button-name'>record</div>
+          </button>
+          <button className='add-btn'>
+          <div className=''>add</div>
+          </button>
+          <button className={`stop-btn ${isRec ? '' : 'bg-dark-red white'}`} disabled={!isRec} onClick={stopRecording}>
+          <div className='button-name'>stop</div>
+          </button>
+
+          {/* <video controls >
+            <source src={url} type='video/webm'/>
+          </video> */}
+      </div>
 
     </div>
   );
