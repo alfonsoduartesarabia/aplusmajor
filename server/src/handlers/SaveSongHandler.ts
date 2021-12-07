@@ -5,9 +5,9 @@ import Joi from 'joi';
 
 async function onMessage(msg: any, socket: Socket) {
   try {
-    
+    let notesString = msg.notes.join(" ")
     let Query = `INSERT INTO songs (artist, song_title, notes) \
-    VALUES ('A+ Major Band', 'Drum Machine', '${msg.notes}');`
+    VALUES ('A+ Major Band', 'Drum Machine', '${notesString}');`
     const value = await DB.query(Query)
     console.log("SaveSongHandler First Query Result", value)
     const songs = await DB.query('SELECT * FROM songs')
