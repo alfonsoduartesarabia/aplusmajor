@@ -61,6 +61,7 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
   const notes = state.get('notes');
 
   useEffect(() => {
+    
     if (notes && synth) {
       let eachNote = notes.split(' ');
       let noteObjs = eachNote.map((note: string, idx: number) => ({
@@ -69,7 +70,7 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
         note,
         velocity: 1,
       }));
-
+      console.log("NOTES PLAYING", notes)
       new Tone.Part((time, value) => {
         // the value is an object which contains both the note and the velocity
         synth.triggerAttackRelease(value.note, '4n', time, value.velocity);

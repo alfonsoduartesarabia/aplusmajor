@@ -25,11 +25,12 @@ interface DrumPadProps{
   volume: number;
   recorder: Tone.Recorder;
   socket: Socket;
+  dispatch: any;
 }  
 
 /** Drum Machine 
 **/
-function DrumMachine({ state, synth, setSynth }: InstrumentProps ): JSX.Element {
+function DrumMachine({ state, synth, setSynth, dispatch }: InstrumentProps ): JSX.Element {
   const [volume,setVolume] = useState<number>(5);
   const recorder = new Tone.Recorder();
   const socket = state.get('socket');
@@ -43,7 +44,7 @@ function DrumMachine({ state, synth, setSynth }: InstrumentProps ): JSX.Element 
     <div className="pv4">
         <div className="relative h5 w-200 ml4">
           <CreateGrid 
-          id={''} note={''} volume={volume} recorder={recorder} socket={socket}
+          id={''} note={''} volume={volume} recorder={recorder} socket={socket} dispatch={dispatch}
           /> 
           {/* {keys.map(k => {
           return  <DrumPadButton id={k.id} note={k.note} synth={synth} />
@@ -67,10 +68,9 @@ function DrumMachine({ state, synth, setSynth }: InstrumentProps ): JSX.Element 
 }
 
 // Connect to database
-async function saveNotesToDB(notes: string[], socket: Socket){
+async function saveNotesToDB(notes: string[], socket: Socket, dispatch: any){
   const response = await send(socket, 'save_song', { notes });
-  //const songs = await send(socket,'get_songs',{})
-  // new DispatchAction('SET_SONGS',{songs: response});
+  dispatch(new DispatchAction('SET_SONGS', { songs: response }));
 
   /* 
     Lets figure out what response will be after 
@@ -78,7 +78,7 @@ async function saveNotesToDB(notes: string[], socket: Socket){
 }
 
 // Hard coding the grid with buttons
-export function CreateGrid({ sampler, volume, recorder, socket }: DrumPadProps): JSX.Element{
+export function CreateGrid({ sampler, volume, recorder, socket, dispatch }: DrumPadProps): JSX.Element{
 
   sampler = new Tone.Sampler({
     urls: {
@@ -114,7 +114,7 @@ export function CreateGrid({ sampler, volume, recorder, socket }: DrumPadProps):
   }
   function stopRecording(){
     setIsRec(false);
-    saveNotesToDB(notes,socket);
+    saveNotesToDB(notes, socket, dispatch);
     setTimeout(async () => {
       const recording = await recorder.stop();
       url = URL.createObjectURL(recording);
