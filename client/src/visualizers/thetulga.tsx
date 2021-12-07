@@ -7,7 +7,7 @@ import { Visualizer } from '../Visualizers';
 
 
 export const Circle = new Visualizer(
-  'Circle',
+  'Colored O Visualizer',
   (p5: P5, analyzer: Tone.Analyser) => {
     const width = window.innerWidth;
     const height = window.innerHeight / 2;
@@ -33,6 +33,7 @@ export const Circle = new Visualizer(
       const x2 = Math.cos(angle) * (radius + len/2) + centerX
       const y1 = Math.sin(angle) * (radius - len/2) + centerY
       const y2 = Math.sin(angle) * (radius + len/2) + centerY
+      p5.stroke(i, i, i, i);
       p5.line(x1, y1, x2, y2)
       // p5.vertex(X, Y);
     }

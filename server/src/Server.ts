@@ -42,7 +42,7 @@ export async function initServer(): Promise<Server> {
       },
       transports: ['websocket'],
    });
-
+   DB.initializeDB()
    console.debug(`opening socket on port ${PORT}`);
 
    server.on('connection', connectHandler);
