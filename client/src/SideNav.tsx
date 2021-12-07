@@ -1,7 +1,7 @@
 // 3rd party library imports
 import classNames from 'classnames';
 import { List } from 'immutable';
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import {
   RadioButton20,
@@ -27,9 +27,9 @@ interface SideNavProps {
 
 const Section: React.FC<{ title: string }> = ({ title, children }) => {
   return (
-    <div className="flex flex-column h-25 bb b--light-gray light-gray bg-blue pa3">
+    <div className="flex flex-column bb b--light-gray light-gray bg-blue pa3">
       <div className="fw7 mb2">{title} </div>
-      <div className="flex-auto overflow-scroll">{children}</div>
+      <div className="flex-auto">{children}</div>
     </div>
   );
 };
@@ -40,6 +40,15 @@ interface RadioButtonProps {
   active: boolean,
   onClick: () => void
 }
+
+const Playlist: React.FC<{ title: string }> = ({ title, children }) => {
+  return (
+    <div className="flex flex-column bb h-50 b--light-gray light-gray bg-blue pa3">
+      <div className="fw7 mb2">{title} </div>
+      <div className="flex-auto">{children}</div>
+    </div>
+  );
+};
 
 function RadioButton({ to, text, active, onClick }: RadioButtonProps): JSX.Element {
   return (
@@ -104,11 +113,18 @@ function Visualizers({ state }: SideNavProps): JSX.Element {
 
 function Songs({ state, dispatch }: SideNavProps): JSX.Element {
   const songs: List<any> = state.get('songs', List());
-  // const [query, setQuery] = useState("")  
+  const [query, setQuery] = useState("");
+
+
   return (
-    <Section title="Playlist">
-      {/* <input onChange={ event => setQuery(event.target.value)}/> */}
-      {songs.map(song => ( // Change this to arr.filter and filter based on query
+    <Playlist title="Playlist">
+      {<input className="w-100" onChange={ event => {
+      setQuery(event.target.value); 
+      console.log(query)
+      //console.log(songs.filter(song => song.get('song_title').includes(query)));
+      }
+      }/>}
+      {songs.filter(song => song.get('song_title').toLowerCase().includes(query.toLowerCase())).map(song => ( // Change this to arr.filter and filter based on query
         <div
           key={song.get('id')}
           className="f6 pointer underline flex items-center no-underline i dim"
@@ -120,17 +136,17 @@ function Songs({ state, dispatch }: SideNavProps): JSX.Element {
           {song.get('song_title')}
         </div>
       ))}
-    </Section>
+    </Playlist>
   );
 }
 
 export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
   return (
-    <div className="absolute top-0 left-0 bottom-0 w5 z-1 shadow-1 flex light-gray bg-blue flex-column">
+    <div className="absolute top-0 left-0 bottom-0 w5 h-100 z-1 shadow-1 flex light-gray bg-blue flex-column">
       <div className="h3 fw7 f5 flex items-center pl3 bb b--light-gray">
         A+ Major
       </div>
-      <div className="flex-auto">
+      <div className="flex-column h-100">
         <Instruments state={state} dispatch={dispatch} />
         <Visualizers state={state} dispatch={dispatch} />
         <Songs state={state} dispatch={dispatch} />
