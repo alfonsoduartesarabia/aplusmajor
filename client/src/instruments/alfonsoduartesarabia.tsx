@@ -1,15 +1,17 @@
 // 3rd party library imports
 import * as Tone from 'tone';
 import classNames from 'classnames';
-import { List, Range } from 'immutable';
+import { Map, List, Range } from 'immutable';
 import { ChangeEventHandler, createRef, useEffect, useRef, useState } from 'react';
 
 // project imports
 import { Instrument, InstrumentProps } from '../Instruments';
 import Grid from './Grid';
 import './alfonsoduartesarabia.css';
-import { StateTimeline } from 'tone';
-// import { BsFillStopFill } from 'react-icons/bs';
+import { Socket } from 'socket.io-client';
+import { send } from '../Socket';
+import {SaveSongHandler} from '/Users/alfonsoduarte/Documents/CSC600/final-project-a-major/server/src/handlers/SaveSongHandler';
+import { DispatchAction } from '../Reducer';
 
 /** ------------------------------------------------------------------------ **
  * Contains implementation of components for Drum Machine.
@@ -23,6 +25,7 @@ interface DrumPadProps{
   sampler?: Tone.Sampler;
   volume: number;
   recorder: Tone.Recorder;
+  socket: Socket;
   // isRec: boolean;
   // notes: string[];
 }
@@ -70,9 +73,8 @@ export function DrumMachineKey({
 **/
 function DrumMachine({ state, synth, setSynth }: InstrumentProps ): JSX.Element {
   const [volume,setVolume] = useState<number>(5);
-  const socket = state.get('socket')
   const recorder = new Tone.Recorder();
-
+  const socket = state.get('socket');
   
   function changeVolume(e: React.ChangeEvent<HTMLInputElement>) {
     setVolume(e.target.value as unknown as number);
@@ -83,7 +85,7 @@ function DrumMachine({ state, synth, setSynth }: InstrumentProps ): JSX.Element 
     <div className="pv4">
         <div className="relative h5 w-200 ml4">
           <CreateGrid 
-          id={''} note={''} volume={volume} recorder={recorder} 
+          id={''} note={''} volume={volume} recorder={recorder} socket={socket}
           /> 
           {/* {keys.map(k => {
           return  <DrumPadButton id={k.id} note={k.note} synth={synth} />
@@ -107,20 +109,21 @@ function DrumMachine({ state, synth, setSynth }: InstrumentProps ): JSX.Element 
 }
 
 // Connect to database
-export function saveNotesToDB(notes: string[]){
+async function saveNotesToDB(notes: string[], socket: Socket){
   /* 
   1. pass socket 
   2. import send func
   */
-  // const response  = await send(socket, 'new_recording', { notes });
+    const response = await send(socket, 'save_song', { notes });
+    //const songs = await send(socket,'get_songs',{})
+   // new DispatchAction('SET_SONGS',{songs: response});
   /* 
     Lets figure out what response will be after 
   */
-  console.log(notes.length);
 }
 
 // Hard coding the grid with buttons
-export function CreateGrid({ synth, sampler, volume, recorder}: DrumPadProps): JSX.Element{
+export function CreateGrid({ sampler, volume, recorder, socket }: DrumPadProps): JSX.Element{
 
   sampler = new Tone.Sampler({
     urls: {
@@ -145,8 +148,8 @@ export function CreateGrid({ synth, sampler, volume, recorder}: DrumPadProps): J
   sampler?.connect(recorder);
   // synth = new Tone.Synth().connect(recorder);
   let url: string = '';
-  const videoRef = useRef();
-  const previousUrl = useRef(url);
+  // const videoRef = useRef();
+  // const previousUrl = useRef(url);
   
   function saveNotes(note: string){
     if(isRec){
@@ -159,16 +162,16 @@ export function CreateGrid({ synth, sampler, volume, recorder}: DrumPadProps): J
   }
   function stopRecording(){
     setIsRec(false);
-    saveNotesToDB(notes);
+    saveNotesToDB(notes,socket);
     // Sampler Recorder - Generate 
     //recorder.start();
     setTimeout(async () => {
       const recording = await recorder.stop();
       url = URL.createObjectURL(recording);
-      const anchor = document.createElement("a");
-      anchor.download = "recording.webm";
-      anchor.href = url;
-      anchor.click();
+      // const anchor = document.createElement("a");
+      // anchor.download = "recording.webm";
+      // anchor.href = url;
+      // anchor.click();
     },2000);
     notes.splice(0,notes.length);
   }
