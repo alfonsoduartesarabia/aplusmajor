@@ -22,8 +22,8 @@ function App() {
     initializeSocket(
       async socket => {
         dispatch(new DispatchAction('SET_SOCKET', { socket }));
-        const { songs } = await send(socket, 'get_songs', {});
-        dispatch(new DispatchAction('SET_SONGS', { songs }));
+        const response  = await send(socket, 'get_songs', {});
+        dispatch(new DispatchAction('SET_SONGS', { songs: response }));
       },
       () => {
         dispatch(new DispatchAction('DELETE_SOCKET'));

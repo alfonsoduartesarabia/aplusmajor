@@ -21,7 +21,7 @@ export async function send(
 
   return new Promise((resolve, reject) => {
     socket.once(`${name}.${_id}`, resp => {
-      const { error, ...success } = resp;
+      const { error, success } = resp;
       if (success) {
         resolve(success);
       } else {

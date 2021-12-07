@@ -26,7 +26,7 @@ import { XylophoneInstrument } from "./instruments/Xylophone";
 export type AppState = Map<string, any>;
 
 const instruments = List([PianoInstrument, GuitarInstrument,FluteInstrument,DrumMachineInstrument,XylophoneInstrument]);
-const visualizers = List([WaveformVisualizer, StarVisualizer, Circle,Smiley,MultiShapeVisualizer]);
+const visualizers = List([WaveformVisualizer, StarVisualizer, Circle, Smiley, MultiShapeVisualizer]);
 export const defaultState: AppState = Map<string, any>({
   instruments,
   visualizers,
