@@ -8,6 +8,7 @@ import React, {useState} from 'react';
 // project imports
 import { Instrument, InstrumentProps } from '../Instruments';
 import { Console } from 'console';
+import { Notebook16 } from '@carbon/icons-react';
 
 /** ------------------------------------------------------------------------ **
  * Contains implementation of components for Piano.
@@ -67,6 +68,337 @@ export function PianoKey({
     });
   };
 
+  const testSong1 =[
+    {
+      "duration": 0.17361119791666668,
+      "durationTicks": 25,
+      "midi": 60,
+      "name": "C4",
+      "ticks": 0,
+      "time": 0,
+      "velocity": 0.968503937007874
+    },
+  ]
+
+  const testSong = [
+    {
+      "duration": 0.17361119791666668,
+      "durationTicks": 25,
+      "midi": 60,
+      "name": "C4",
+      "ticks": 0,
+      "time": 0,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666665,
+      "durationTicks": 25,
+      "midi": 62,
+      "name": "D4",
+      "ticks": 24,
+      "time": 0.16666675,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666663,
+      "durationTicks": 25,
+      "midi": 64,
+      "name": "E4",
+      "ticks": 48,
+      "time": 0.3333335,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666668,
+      "durationTicks": 25,
+      "midi": 60,
+      "name": "C4",
+      "ticks": 72,
+      "time": 0.50000025,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666668,
+      "durationTicks": 25,
+      "midi": 60,
+      "name": "C4",
+      "ticks": 96,
+      "time": 0.666667,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.1736111979166668,
+      "durationTicks": 25,
+      "midi": 62,
+      "name": "D4",
+      "ticks": 120,
+      "time": 0.83333375,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666657,
+      "durationTicks": 25,
+      "midi": 64,
+      "name": "E4",
+      "ticks": 144,
+      "time": 1.0000005,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666657,
+      "durationTicks": 25,
+      "midi": 60,
+      "name": "C4",
+      "ticks": 168,
+      "time": 1.16666725,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666657,
+      "durationTicks": 25,
+      "midi": 64,
+      "name": "E4",
+      "ticks": 192,
+      "time": 1.333334,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666657,
+      "durationTicks": 25,
+      "midi": 65,
+      "name": "F4",
+      "ticks": 216,
+      "time": 1.50000075,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666657,
+      "durationTicks": 25,
+      "midi": 67,
+      "name": "G4",
+      "ticks": 240,
+      "time": 1.6666675,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666635,
+      "durationTicks": 25,
+      "midi": 64,
+      "name": "E4",
+      "ticks": 288,
+      "time": 2.000001,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666635,
+      "durationTicks": 25,
+      "midi": 65,
+      "name": "F4",
+      "ticks": 312,
+      "time": 2.1666677500000002,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.1736111979166668,
+      "durationTicks": 25,
+      "midi": 67,
+      "name": "G4",
+      "ticks": 336,
+      "time": 2.3333345,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.1736111979166668,
+      "durationTicks": 25,
+      "midi": 67,
+      "name": "G4",
+      "ticks": 384,
+      "time": 2.666668,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.1736111979166668,
+      "durationTicks": 25,
+      "midi": 69,
+      "name": "A4",
+      "ticks": 408,
+      "time": 2.83333475,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.1736111979166668,
+      "durationTicks": 25,
+      "midi": 67,
+      "name": "G4",
+      "ticks": 432,
+      "time": 3.0000015,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666724,
+      "durationTicks": 25,
+      "midi": 65,
+      "name": "F4",
+      "ticks": 456,
+      "time": 3.16666825,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.1736111979166668,
+      "durationTicks": 25,
+      "midi": 64,
+      "name": "E4",
+      "ticks": 480,
+      "time": 3.333335,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.1736111979166668,
+      "durationTicks": 25,
+      "midi": 60,
+      "name": "C4",
+      "ticks": 504,
+      "time": 3.50000175,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.1736111979166668,
+      "durationTicks": 25,
+      "midi": 60,
+      "name": "C4",
+      "ticks": 528,
+      "time": 3.6666685,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666635,
+      "durationTicks": 25,
+      "midi": 67,
+      "name": "G4",
+      "ticks": 576,
+      "time": 4.000002,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666635,
+      "durationTicks": 25,
+      "midi": 69,
+      "name": "A4",
+      "ticks": 600,
+      "time": 4.16666875,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666635,
+      "durationTicks": 25,
+      "midi": 67,
+      "name": "G4",
+      "ticks": 624,
+      "time": 4.3333355000000005,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666724,
+      "durationTicks": 25,
+      "midi": 65,
+      "name": "F4",
+      "ticks": 648,
+      "time": 4.50000225,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666724,
+      "durationTicks": 25,
+      "midi": 64,
+      "name": "E4",
+      "ticks": 672,
+      "time": 4.666669,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666724,
+      "durationTicks": 25,
+      "midi": 60,
+      "name": "C4",
+      "ticks": 696,
+      "time": 4.83333575,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666724,
+      "durationTicks": 25,
+      "midi": 60,
+      "name": "C4",
+      "ticks": 720,
+      "time": 5.0000025,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666635,
+      "durationTicks": 25,
+      "midi": 60,
+      "name": "C4",
+      "ticks": 768,
+      "time": 5.333336,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666635,
+      "durationTicks": 25,
+      "midi": 55,
+      "name": "G3",
+      "ticks": 816,
+      "time": 5.6666695,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666635,
+      "durationTicks": 25,
+      "midi": 60,
+      "name": "C4",
+      "ticks": 864,
+      "time": 6.000003,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666635,
+      "durationTicks": 25,
+      "midi": 60,
+      "name": "C4",
+      "ticks": 960,
+      "time": 6.66667,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666635,
+      "durationTicks": 25,
+      "midi": 55,
+      "name": "G3",
+      "ticks": 1008,
+      "time": 7.0000035,
+      "velocity": 0.968503937007874
+    },
+    {
+      "duration": 0.17361119791666635,
+      "durationTicks": 25,
+      "midi": 60,
+      "name": "C4",
+      "ticks": 1056,
+      "time": 7.333337,
+      "velocity": 0.968503937007874
+    }
+  ]
+
+  const playSong = (synth: Tone.Synth<Tone.SynthOptions> | undefined, song: { duration: number; durationTicks: number; midi: number; name: string; ticks: number; time: number; velocity: number; }[]) => {
+    const timeFactor = 1
+    song.forEach(function (note) {
+      synth?.triggerAttackRelease(note['name'],'+'+note['duration']*timeFactor+note['time']*timeFactor,"+"+note['time']*timeFactor)
+      console.log("played song ");
+      //synth?.triggerAttackRelease(note['name'], note['duration'], note['time'],note['velocity']);
+    });
+  }
+
+
   return (
     // Observations:
     // 1. The JSX refers to the HTML-looking syntax within TypeScript.
@@ -76,6 +408,10 @@ export function PianoKey({
       onMouseDown={() => {
         if (chord[0] == 'None') {
           synth?.triggerAttack(`${note}`);
+        }
+        else if (chord[0] == 'song') {
+          console.log("at the else ");
+          playSong(synth,testSong);
         }
         else {
           playChord(`${note}`,chord[1] as number[],synth,0.2);
@@ -107,7 +443,6 @@ export function PianoKey({
 
 
 function PianoType({ title, onClick, active }: any): JSX.Element {
-  const [Flute,setFlute] = useState("off");
 
   return (
     <div
@@ -146,6 +481,7 @@ function Flute({ synth, setSynth }: InstrumentProps): JSX.Element {
     ['Minor',[3,7]],
     ['Power',[7]],
     ['Suspended',[5,7]],
+    ['song',[]],
   ]);
 
   const seventhChords: List<(string | number[])[]> = List([
@@ -172,9 +508,11 @@ function Flute({ synth, setSynth }: InstrumentProps): JSX.Element {
 
   const setOscillator = () => {
     if (flute == 'off') {
-      synth.toDestination();
+
       setSynth(oldSynth => {
-        oldSynth.set(
+        oldSynth.disconnect();
+        var newSynth = new Tone.Synth({oscillator:{type:"sine"}}).toDestination();
+        newSynth.set(
           {
             oscillator: { 
               type: 'sine'
@@ -193,11 +531,11 @@ function Flute({ synth, setSynth }: InstrumentProps): JSX.Element {
         const tremolo = new Tone.Tremolo(5, 0.4).toDestination().start();
         const freeverb = new Tone.Freeverb().toDestination();
         freeverb.dampening = 1000;
-        oldSynth.connect(tremolo);
-        oldSynth.connect(freeverb);
-        synth.volume.value = -20;
+        newSynth.connect(tremolo);
+        newSynth.connect(freeverb);
+        newSynth.volume.value = -20;
         setFlute("on");
-        return oldSynth;
+        return newSynth;
       });  
     }
     else {
@@ -205,7 +543,6 @@ function Flute({ synth, setSynth }: InstrumentProps): JSX.Element {
       synth.disconnect();
     }
   }
-
   return (
     <div className="pv4">
       <div className="relative dib h4 w-100 ml4">
@@ -243,6 +580,7 @@ function Flute({ synth, setSynth }: InstrumentProps): JSX.Element {
             <ChordType
               title={c[0]}
               onClick={() => setChord(c)}
+              active={chord[0] == c[0]}
             />
           ))}
         </div>
