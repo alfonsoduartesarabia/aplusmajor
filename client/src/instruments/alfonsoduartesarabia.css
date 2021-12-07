@@ -28,8 +28,8 @@
   }
 .volume-bar{
     position: fixed;
-    left: 700px;
-    top: 250px;
+    left: 1000px;
+    top: 200px;
 }
 .record-btn{
     display: flex;
@@ -46,8 +46,8 @@
     border-radius: 20px;
     box-shadow: 0 9px #999;
     position: fixed;
-    left: 700px;
-    top: 150px;
+    left: 1000px;
+    top: 250px;
     padding:0.5em;
     align-items: center;
 }
@@ -67,8 +67,8 @@
     border-radius: 20px;
     box-shadow: 0 9px #999;
     position: fixed;
-    left: 770px;
-    top: 150px;
+    left: 1070px;
+    top: 250px;
     align-items: center;
 }
 .stop-btn{
@@ -87,8 +87,8 @@
     border-radius: 20px;
     box-shadow: 0 9px #999;
     position: fixed;
-    left: 840px;
-    top: 150px;
+    left: 1140px;
+    top: 250px;
     align-items: center;
 }
 .record-btn:active, .add-btn:active, .stop-btn:active{
