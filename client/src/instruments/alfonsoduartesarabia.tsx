@@ -8,6 +8,7 @@ import { ChangeEventHandler, createRef, useEffect, useRef, useState } from 'reac
 import { Instrument, InstrumentProps } from '../Instruments';
 import Grid from './Grid';
 import './alfonsoduartesarabia.css';
+import { StateTimeline } from 'tone';
 // import { BsFillStopFill } from 'react-icons/bs';
 
 /** ------------------------------------------------------------------------ **
@@ -67,10 +68,12 @@ export function DrumMachineKey({
 
 /** Drum Machine - keys: id and notes 
 **/
-function DrumMachine({ synth, setSynth }: InstrumentProps ): JSX.Element {
+function DrumMachine({ state, synth, setSynth }: InstrumentProps ): JSX.Element {
   const [volume,setVolume] = useState<number>(5);
+  const socket = state.get('socket')
   const recorder = new Tone.Recorder();
 
+  
   function changeVolume(e: React.ChangeEvent<HTMLInputElement>) {
     setVolume(e.target.value as unknown as number);
     // sampler?.disconnect();
@@ -105,6 +108,14 @@ function DrumMachine({ synth, setSynth }: InstrumentProps ): JSX.Element {
 
 // Connect to database
 export function saveNotesToDB(notes: string[]){
+  /* 
+  1. pass socket 
+  2. import send func
+  */
+  const response  = await send(socket, 'new_recording', { notes });
+  /* 
+    Lets figure out what response will be after 
+  */
   console.log(notes.length);
 }
 
