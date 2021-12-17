@@ -9,6 +9,11 @@ My contributions were as follow:
 Drum Machine is an electronic instrument that creates percussion sounds, patterns, and drum beats. 
 My simple drum machine has 9 sounds were you can adjust the volume (in dB), can have to ability to record your beats, and you can download them.
 
+Since github pages is serverless, there is no backend server to be displayed, but was implemented where 
+we had a playlist of songs to be played with our instruments.
+
+https://alfonsoduartesarabia.github.io/aplusmajor/
+
 # LamdbaVibe
 
 CSC 600 musical application. Get ready to shred.
