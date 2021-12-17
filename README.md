@@ -1,5 +1,14 @@
-<<<<<<< HEAD
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-f059dc9a6f8d3a56e377f745f24479a46679e63a5d9fe6f495e02850cd0d8118.svg)](https://classroom.github.com/online_ide?assignment_repo_id=6116718&assignment_repo_type=AssignmentRepo)
+
+# A+ Major
+Final Project for SFSU CSC 600. In collaboration with Battulga Tsogtgerel, Ezra Player, and Chaoyi Ying.
+My contributions were as follow: 
+* Visualizer: Star Visualizer
+* Instrument: Drum Machine
+
+Drum Machine is an electronic instrument that creates percussion sounds, patterns, and drum beats. 
+My simple drum machine has 9 sounds were you can adjust the volume (in dB), can have to ability to record your beats, and you can download them.
+
 # LamdbaVibe
 
 CSC 600 musical application. Get ready to shred.
@@ -50,7 +59,3 @@ Runs the server in development mode.
 
 The server will restart if you make edits.
 You will also see errors in the console.
-=======
-# aplusmajor
-SFSU CSC 600 Final Project 
->>>>>>> 8de17e5ce31a86650af8ea2b3abc83984bbbe857
