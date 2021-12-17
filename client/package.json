@@ -1,4 +1,5 @@
 {
+   "homepage": "http://alfonsoduartesarabia.github.io/aplusmajor",
    "name": "lambdavibe",
    "version": "0.1.0",
    "private": true,
@@ -30,6 +31,8 @@
       "web-vitals": "^1.1.2"
    },
    "scripts": {
+      "predeploy": "npm run build",
+      "deploy": "gh-pages -d build",
       "start": "set PORT=3000 && react-scripts start",
       "prod": "npm run build; python3 -m http.server --directory build --bind 127.0.0.1 3002",
       "server": "node -r dotenv server/index.ts",
@@ -55,6 +58,7 @@
    },
    "devDependencies": {
       "@types/carbon__icons-react": "^10.31.1",
-      "@types/react-router-dom": "^5.1.8"
+      "@types/react-router-dom": "^5.1.8",
+      "gh-pages": "^3.2.3"
    }
 }

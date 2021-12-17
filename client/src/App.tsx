@@ -1,6 +1,6 @@
 // 3rd party library imports
 import { useReducer, useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, HashRouter } from 'react-router-dom';
 
 // project imports
 import { MainPage } from './MainPage';
@@ -32,7 +32,7 @@ function App() {
   }, []);
 
   return (
-    <Router>
+    <HashRouter>
       <Switch>
         <Route path="/">
           <MainPage state={state} dispatch={dispatch} />
@@ -44,7 +44,7 @@ function App() {
           <div>404</div>
         </Route>
       </Switch>
-    </Router>
+    </HashRouter>
   );
 }
 

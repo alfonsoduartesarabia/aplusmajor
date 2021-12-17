@@ -113,7 +113,7 @@ export function Container({sampler, volume}: Xylophone): JSX.Element {
             D0: 'sounds/d1.wav',
         },
         release: 10,
-        baseUrl: 'http://localhost:3000/'
+        baseUrl: 'https://alfonsoduartesarabia.github.io/aplusmajor/'
     }).toDestination();
 
     sampler.volume.value = volume;

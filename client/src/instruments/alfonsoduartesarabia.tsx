@@ -93,7 +93,7 @@ export function CreateGrid({ sampler, volume, recorder, socket, dispatch }: Drum
       F2: 'sounds/Hip-Hop-Snare-1.wav',
     }, 
     release: 10,
-    baseUrl: 'http://localhost:3000/'
+    baseUrl: 'https://alfonsoduartesarabia.github.io/aplusmajor/'
   }).toDestination();
 
   const [isRec,setIsRec] = useState(false);
@@ -234,7 +234,7 @@ export function DrumPadButton({id,note, sampler}: DrumPadProps): JSX.Element {
       F2: 'sounds/Hip-Hop-Snare-1.wav',
     }, 
     release: 10,
-    baseUrl: 'http://localhost:3000/'
+    baseUrl: 'https://alfonsoduartesarabia.github.io/aplusmajor/'
   }).toDestination();
   // Tone.Transport.start();
 

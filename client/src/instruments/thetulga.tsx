@@ -56,7 +56,7 @@ export function LaunchPadKey({ note, keyCode, soundPath, themeColor }: Launchpad
     window.addEventListener('keydown', keyDownEventHandler)
     window.addEventListener('keyup', keyUpEventHandler)
     player
-      .load("/" + soundPath)
+      .load("/aplusmajor/" + soundPath)
       .then(() => {
         setReady(true)
       })
